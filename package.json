@@ -1,0 +1,10 @@
+{
+  "name": "taxstreem-node",
+  "version": "0.0.1",
+  "description": "Node.js SDK for TaxStreem API",
+  "main": "index.js",
+  "type": "module",
+  "dependencies": {
+    "axios": "^1.6.0"
+  }
+}
