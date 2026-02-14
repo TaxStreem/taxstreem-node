@@ -1,8 +1,8 @@
 {
   "name": "@taxstreem/taxstreem-sdk",
-  "version": "1.2.1-beta.2",
+  "version": "1.0.0",
   "description": "TaxStreem API wrapper for Node",
-  "author": "TaxStreem <integrations@taxstreem.com> (https://taxstreem.com/docs)",
+  "author": "TaxStreem <principalengineer@taxstreem.com> (https://taxstreem.com/docs)",
   "keywords": [
     "taxstreem",
     "vat filing",
