@@ -30,12 +30,12 @@ export class TaxStreemRuntime {
             const payload = JSON.stringify(body);
 
             // HMAC Signing logic
-            const signature = crypto
-                .createHmac('sha256', this.config.sharedSecret)
-                .update(payload)
-                .digest('hex');
+            // const signature = crypto
+            //     .createHmac('sha256', this.config.sharedSecret)
+            //     .update(payload)
+            //     .digest('hex');
 
-            headers['x-taxstreem-signature'] = signature;
+            // headers['x-taxstreem-signature'] = signature;
             fetchOptions.body = payload;
         }
 

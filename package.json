@@ -1,6 +1,6 @@
 {
   "name": "@taxstreem/taxstreem-sdk",
-  "version": "1.0.0",
+  "version": "1.0.1-alpha.1",
   "description": "TaxStreem API wrapper for Node",
   "author": "TaxStreem <principalengineer@taxstreem.com> (https://taxstreem.com/docs)",
   "keywords": [
