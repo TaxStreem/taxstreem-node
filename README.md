@@ -1,70 +1,80 @@
-## TaxStreem Node Library
+# TaxStreem Node SDK
 
-A Node client library for consuming the TaxStreem API  
+A lightweight, dependency-free Node.js client library for the TaxStreem API. Built for performance and modern runtimes using native `fetch`.
 
-## Prerequisite
-Your need to [create a TaxStreem account](https://partners-portal.taxstreem.com), if you don't have one already, to get your test and 
-live secret keys.
+## Features
+
+- **Zero Dependencies**: Lightweight footprint, no security vulnerabilities from third-party request libraries.
+- **Native Fetch**: Uses built-in Node.js 18+ `fetch` API.
+- **HMAC Signing**: Automatic payload signing for secure communication.
+- **TypeScript Support**: Full type definitions included.
+- **Debug Mode**: Built-in request logging for easier integration.
 
 ## Installation
+
+```bash
+npm install @taxstreem/taxstreem-sdk
 ```
-npm install @taxstreem/taxstreem-sdk --save
+
+## Quick Start
+
+### Basic Initialization
+```javascript
+import { TaxStreem } from '@taxstreem/taxstreem-sdk';
+
+const sdk = new TaxStreem('your-api-key', 'your-shared-secret');
+```
+
+### Options & Sandbox Environment
+```javascript
+const sdk = new TaxStreem('your-api-key', 'your-shared-secret', {
+  baseUrl: 'https://sandbox-api.taxstreem.com/v1', // Optional: defaults to production
+  debug: true // Enables request/response logging
+});
 ```
 
 ## Usage
-Import and initialize the library:
+
+### Flux: Submit a Single VAT Filing
+Submit a VAT return for a specific business and tax period.
+
 ```javascript
-const { TaxStreem } = require('@taxstreem/taxstreem-sdk')
-const taxstreem = new TaxStreem("sk_test_xxxxxx")
+const payload = {
+  business_tin: "12345678-0001",
+  tax_period: {
+    month: 1,
+    year: 2024
+  },
+  totals: {
+    total_sales: 1000000,
+    exempt_sales: 0,
+    zero_rated_sales: 0,
+    total_output_vat: 75000,
+    total_input_vat: 50000
+  }
+};
 
-const response = taxstreem.flux.vatFiling.batch({
-  email: "test@example.com",
-  amount: 20000
-})
-
-console.log(response)
+try {
+  const result = await sdk.flux.fileVatSingle(payload);
+  console.log('Filing submitted successfully:', result.reference_id);
+} catch (error) {
+  console.error('Filing failed:', error.message);
+}
 ```
 
-Import and initialize the library using ES module with `async/await`:
+## Debugging
+Enable `debug: true` in the configuration to see outgoing signatures and request details in your console:
+
 ```javascript
-import { TaxStreem } from '@taxstreem/taxstreem-sdk'
-const taxstreem = new TaxStreem("sk_test_xxxxxx")
-
-const initialize = async(email, amount) => {
-  const response = await taxstreem.flux.vatFiling.batch({
-    email,
-    amount
-  })
-
-  console.log(response)
-}
-
-const email = 'test@example.com'
-const amount = 2000
-initialize(email, amount)
+const sdk = new TaxStreem(apiKey, sharedSecret, { debug: true });
+// Logs: [TaxStreem] Calling POST https://api.taxstreem.com/v1/flux/vat-filing/single...
 ```
 
-### Typescript
-```typescript
-import { TaxStreem } from '@taxstreem/taxstreem-sdk';
-const taxstreem = new TaxStreem("sk_test_xxxxxx");
-
-const initialize = async(email, amount) => {
-  const response = await taxstreem.flux.vatFiling.batch({
-    email,
-    amount
-  });
-
-  console.log(response);
-}
-
-const email = 'test@example.com';
-const amount = 2000;
-initialize(email, amount);
-```
+## Requirements
+- Node.js 18.0.0 or higher (for native `fetch` support).
 
 ## Issues
 Kindly [open an issue](https://github.com/TaxStreem/taxstreem-node/issues) if you discover any bug or have problems using this library. 
 
 ## License
-This repository is made available under the MIT license. Kindly read the [LICENSE](https://github.com/TaxStreem/taxstreem-node/blob/main/LICENSE) file for more information.
+MIT License. See [LICENSE](LICENSE) for more information.
