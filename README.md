@@ -28,7 +28,6 @@ const sdk = new TaxStreem('your-api-key', 'your-shared-secret');
 ### Options & Sandbox Environment
 ```javascript
 const sdk = new TaxStreem('your-api-key', 'your-shared-secret', {
-  baseUrl: 'https://sandbox-api.taxstreem.com/v1', // Optional: defaults to production
   debug: true // Enables request/response logging
 });
 ```

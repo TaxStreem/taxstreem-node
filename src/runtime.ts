@@ -3,7 +3,6 @@ import * as crypto from 'crypto';
 export interface TaxStreemConfig {
     apiKey: string;
     sharedSecret: string;
-    baseUrl?: string;
     debug?: boolean;
 }
 
@@ -11,7 +10,7 @@ export class TaxStreemRuntime {
     private readonly baseUrl: string;
 
     constructor(private readonly config: TaxStreemConfig) {
-        this.baseUrl = config.baseUrl || 'https://api.taxstreem.com/v1';
+        this.baseUrl = 'https://api.taxstreem.com/v1';
     }
 
     async request<T>(method: string, path: string, body?: any): Promise<T> {
