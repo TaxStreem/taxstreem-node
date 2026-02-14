@@ -23,11 +23,6 @@ npm install @taxstreem/taxstreem-sdk
 ```javascript
 import { TaxStreem } from '@taxstreem/taxstreem-sdk';
 
-const sdk = new TaxStreem('your-api-key', 'your-shared-secret');
-```
-
-### Options & Debugging
-```javascript
 const sdk = new TaxStreem('your-api-key', 'your-shared-secret', {
   debug: true // Enables request/response logging to console
 });
