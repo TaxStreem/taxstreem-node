@@ -16,7 +16,7 @@ export class TaxStreemRuntime {
     async request<T>(method: string, path: string, body?: any): Promise<T> {
         const url = `${this.baseUrl}${path}`;
         const headers: Record<string, string> = {
-            'Authorization': `Bearer ${this.config.apiKey}`,
+            'x-api-key': this.config.apiKey,
             'Content-Type': 'application/json',
             'User-Agent': 'TaxStreem-Node-SDK/1.0.0',
         };
