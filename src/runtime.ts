@@ -1,5 +1,3 @@
-import * as crypto from 'crypto';
-
 export interface TaxStreemConfig {
     apiKey: string;
     sharedSecret: string;
@@ -28,20 +26,11 @@ export class TaxStreemRuntime {
 
         if (body) {
             const payload = JSON.stringify(body);
-
-            // HMAC Signing logic
-            // const signature = crypto
-            //     .createHmac('sha256', this.config.sharedSecret)
-            //     .update(payload)
-            //     .digest('hex');
-
-            // headers['x-taxstreem-signature'] = signature;
             fetchOptions.body = payload;
         }
 
         if (this.config.debug) {
-            console.log(`[TaxStreem] Calling ${method} ${url}`);
-            console.log(`[TaxStreem] Headers:`, JSON.stringify(headers, null, 2));
+            console.log(`HTTP Request: ${method} ${url}`);
             if (body) {
                 console.log(`[TaxStreem] Body:`, JSON.stringify(body, null, 2));
             }
@@ -52,7 +41,7 @@ export class TaxStreemRuntime {
         if (!response.ok) {
             const errorData = await response.json().catch(() => ({}));
             if (this.config.debug) {
-                console.error(`[TaxStreem] Error:`, response.status, errorData);
+                console.error(`[TaxStreem] - ERROR - `, response.status, errorData);
             }
             throw new Error(errorData.message || `TaxStreem Error: ${response.statusText}`);
         }
