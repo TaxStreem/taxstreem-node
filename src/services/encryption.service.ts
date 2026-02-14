@@ -1,26 +1,24 @@
 import { createCipheriv, createHash, randomBytes } from 'crypto';
 
-export interface TaxProMaxCredentials {
-    email: string;
-    password: string;
-    [key: string]: any;
-}
-
 export class EncryptionService {
+    private sharedSecret: string;
+
+    constructor(sharedSecret: string) {
+        this.sharedSecret = sharedSecret;
+    }
+
     /**
      * Encrypt TaxProMax credentials using AES-256-GCM.
      * This matches the encryption logic used by the TaxStreem API.
      * 
      * @param tpmCred The credentials to encrypt
-     * @param sharedSecret The partner's shared secret
      * @returns A base64 encoded string containing IV, ciphertext, and tag
      */
     encryptTaxProMaxCredential(
-        tpmCred: TaxProMaxCredentials,
-        sharedSecret: string
+        tpmCred: Object,
     ): string {
         // Derive 32-byte key from sharedSecret
-        const key = createHash("sha256").update(sharedSecret).digest();
+        const key = createHash("sha256").update(this.sharedSecret).digest();
 
         // 12-byte IV for GCM
         const iv = randomBytes(12);
@@ -29,7 +27,7 @@ export class EncryptionService {
         const cipher = createCipheriv("aes-256-gcm", key, iv);
 
         // Setting AAD (Additional Authenticated Data)
-        cipher.setAAD(Buffer.from(sharedSecret, "utf8"));
+        cipher.setAAD(Buffer.from(this.sharedSecret, "utf8"));
 
         const plaintext = JSON.stringify(tpmCred);
 

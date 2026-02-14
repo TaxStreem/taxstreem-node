@@ -16,6 +16,6 @@ export class TaxStreem {
     });
 
     this.flux = new FluxResource(runtime);
-    this.encryption = new EncryptionService();
+    this.encryption = new EncryptionService(sharedSecret);
   }
 }

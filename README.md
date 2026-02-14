@@ -39,8 +39,8 @@ const tpmCred = {
     password: "secure-password",
 };
 
-// Use your sharedSecret to encrypt the credentials
-const encryptedPayload = sdk.encryption.encryptTaxProMaxCredential(tpmCred, 'your-shared-secret');
+// encrypt the credentials
+const encryptedPayload = sdk.encryption.encryptTaxProMaxCredential(tpmCred);
 ```
 
 ### 2. Submitting a VAT Filing (Flux)
